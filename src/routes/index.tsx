@@ -115,13 +115,13 @@ function HomePage() {
         />
       )}
 
-      <div className="relative z-10 flex flex-col min-h-screen pb-24">
+      <div className="relative z-10 flex flex-col min-h-screen pt-18 pb-24">
         {/* Header */}
         <nav
-          className={`sticky top-0 left-0 right-0 z-40 backdrop-blur-md border-b transition-colors duration-300 ${
+          className={`fixed top-0 left-0 right-0 z-40 border-b transition-colors duration-300 ${
             darkMode
-              ? 'bg-slate-900/80 border-slate-700/50'
-              : 'bg-slate-50/80 border-slate-200/50'
+              ? 'bg-slate-800 border-slate-700 shadow-[0_4px_6px_-1px_rgba(0,0,0,0.3)]'
+              : 'bg-white border-slate-200 shadow-[0_4px_6px_-1px_rgba(0,0,0,0.05)]'
           }`}
         >
           <div className="flex items-center justify-center px-6 py-4 max-w-7xl mx-auto w-full">
