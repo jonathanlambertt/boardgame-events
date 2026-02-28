@@ -13,6 +13,7 @@ export const Route = createFileRoute('/')({ component: HomePage })
 function HomePage() {
   const [activeTab, setActiveTab] = useState<'find' | 'host' | 'settings'>('find')
   const [darkMode, setDarkMode] = useState(() => {
+    if (typeof window === 'undefined') return true
     return localStorage.getItem('darkMode') !== 'false'
   })
   const [events, setEvents] = useState<Event[]>([])
