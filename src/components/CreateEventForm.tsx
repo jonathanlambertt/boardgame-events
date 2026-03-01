@@ -95,7 +95,7 @@ export function CreateEventForm({ darkMode, onCancel, onCreated }: Props) {
           <Fragment key={step}>
             <div className="flex flex-col items-center">
               <div
-                className={`w-8 h-8 rounded-full flex items-center justify-center text-sm font-semibold transition-colors flex-shrink-0 ${
+                className={`w-8 h-8 rounded-full flex items-center justify-center text-sm font-semibold transition-colors shrink-0 ${
                   formStep >= step
                     ? "bg-indigo-600 text-white"
                     : darkMode
@@ -150,7 +150,7 @@ export function CreateEventForm({ darkMode, onCancel, onCreated }: Props) {
                     setGameTime(`${e.target.value}T${time}`);
                   }}
                   required
-                  className={`${inputClass(darkMode)} ${darkMode ? "[color-scheme:dark]" : ""}`}
+                  className={`${inputClass(darkMode)} ${darkMode ? "scheme:dark" : ""}`}
                 />
               </InputWithIcon>
             </Field>
@@ -169,7 +169,7 @@ export function CreateEventForm({ darkMode, onCancel, onCreated }: Props) {
                     setGameTime(`${date}T${e.target.value}`);
                   }}
                   required
-                  className={`${inputClass(darkMode)} ${darkMode ? "[color-scheme:dark]" : ""}`}
+                  className={`${inputClass(darkMode)} ${darkMode ? "scheme:dark" : ""}`}
                 />
               </InputWithIcon>
             </Field>
@@ -441,7 +441,7 @@ function InputWithIcon({
   children: React.ReactNode;
 }) {
   return (
-    <div className="relative">
+    <div className="relative w-full min-w-0">
       {icon}
       {children}
       {hasChevron && (
