@@ -403,7 +403,7 @@ function iconClass(darkMode: boolean) {
 }
 
 function inputClass(darkMode: boolean) {
-  return `w-full pl-10 pr-4 py-3 rounded-xl border transition-shadow focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent ${
+  return `w-full max-w-full pl-10 pr-4 py-3 rounded-xl border transition-shadow focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent ${
     darkMode
       ? "bg-slate-700 border-slate-600 text-white placeholder:text-slate-500"
       : "bg-slate-50 border-slate-200 text-slate-900 placeholder:text-slate-400"
@@ -441,7 +441,7 @@ function InputWithIcon({
   children: React.ReactNode;
 }) {
   return (
-    <div className="relative w-full min-w-0">
+    <div className="relative w-full min-w-0 overflow-hidden">
       {icon}
       {children}
       {hasChevron && (
