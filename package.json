@@ -19,6 +19,7 @@
     "nitro": "3.0.1-alpha.0",
     "react": "^19.2.1",
     "react-dom": "^19.2.1",
+    "resend": "^6.9.3",
     "tailwindcss": "^4.0.6",
     "vite-tsconfig-paths": "^5.1.4"
   },

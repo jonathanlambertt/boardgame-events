@@ -15,6 +15,7 @@ export type Event = {
 export type Attendee = {
   id: string
   event_id: string
+  name: string
   email: string
   joined_at: string
 }

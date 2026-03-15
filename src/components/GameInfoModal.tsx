@@ -8,7 +8,7 @@ import {
   UsersIcon,
   XIcon,
 } from 'lucide-react'
-import { supabase } from '../lib/supabase'
+import { joinEvent } from '../lib/joinEvent'
 import type { Event } from '../types'
 
 type Props = {
@@ -20,7 +20,8 @@ type Props = {
 }
 
 export function GameInfoModal({ event, attendeeCount, darkMode, onClose, onJoined }: Props) {
-  const [showJoinEmail, setShowJoinEmail] = useState(false)
+  const [showJoinForm, setShowJoinForm] = useState(false)
+  const [joinName, setJoinName] = useState('')
   const [joinEmail, setJoinEmail] = useState('')
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [error, setError] = useState<string | null>(null)
@@ -37,23 +38,30 @@ export function GameInfoModal({ event, attendeeCount, darkMode, onClose, onJoine
   })}`
 
   const handleJoin = async () => {
-    if (!joinEmail) return
+    if (!joinName || !joinEmail) return
     setIsSubmitting(true)
     setError(null)
 
-    const { error: insertError } = await supabase
-      .from('attendees')
-      .insert({ event_id: event.id, email: joinEmail })
-
-    setIsSubmitting(false)
-
-    if (insertError) {
+    try {
+      await joinEvent({
+        data: {
+          eventId: event.id,
+          eventTitle: event.title,
+          eventLocation: event.location,
+          eventDateTime: formattedDateTime,
+          hostName: event.host_name,
+          hostEmail: event.host_email,
+          joinerName: joinName,
+          joinerEmail: joinEmail,
+        },
+      })
+      onJoined()
+      onClose()
+    } catch {
       setError('Something went wrong. Please try again.')
-      return
+    } finally {
+      setIsSubmitting(false)
     }
-
-    onJoined()
-    onClose()
   }
 
   return (
@@ -111,9 +119,9 @@ export function GameInfoModal({ event, attendeeCount, darkMode, onClose, onJoine
             <p className="text-sm text-red-500">{error}</p>
           )}
 
-          {!showJoinEmail ? (
+          {!showJoinForm ? (
             <button
-              onClick={() => setShowJoinEmail(true)}
+              onClick={() => setShowJoinForm(true)}
               disabled={currentPlayers >= event.total_players}
               className="w-full py-3 bg-indigo-600 hover:bg-indigo-700 text-white font-semibold rounded-xl transition-colors shadow-lg shadow-indigo-600/20 disabled:opacity-50 disabled:cursor-not-allowed"
             >
@@ -121,6 +129,32 @@ export function GameInfoModal({ event, attendeeCount, darkMode, onClose, onJoine
             </button>
           ) : (
             <div className="space-y-3">
+              <div>
+                <label
+                  htmlFor="joinName"
+                  className={`block text-sm font-medium mb-1.5 ${darkMode ? 'text-slate-300' : 'text-slate-700'}`}
+                >
+                  Your Name
+                </label>
+                <div className="relative">
+                  <UserIcon
+                    className={`absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 ${darkMode ? 'text-slate-500' : 'text-slate-400'}`}
+                  />
+                  <input
+                    type="text"
+                    id="joinName"
+                    value={joinName}
+                    onChange={(e) => setJoinName(e.target.value)}
+                    placeholder="Jane Smith"
+                    autoFocus
+                    className={`w-full pl-10 pr-4 py-3 rounded-xl border transition-shadow focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent ${
+                      darkMode
+                        ? 'bg-slate-700 border-slate-600 text-white placeholder:text-slate-500'
+                        : 'bg-slate-50 border-slate-200 text-slate-900 placeholder:text-slate-400'
+                    }`}
+                  />
+                </div>
+              </div>
               <div>
                 <label
                   htmlFor="joinEmail"
@@ -138,7 +172,6 @@ export function GameInfoModal({ event, attendeeCount, darkMode, onClose, onJoine
                     value={joinEmail}
                     onChange={(e) => setJoinEmail(e.target.value)}
                     placeholder="you@example.com"
-                    autoFocus
                     className={`w-full pl-10 pr-4 py-3 rounded-xl border transition-shadow focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent ${
                       darkMode
                         ? 'bg-slate-700 border-slate-600 text-white placeholder:text-slate-500'
@@ -149,7 +182,7 @@ export function GameInfoModal({ event, attendeeCount, darkMode, onClose, onJoine
               </div>
               <div className="flex gap-3">
                 <button
-                  onClick={() => { setShowJoinEmail(false); setJoinEmail('') }}
+                  onClick={() => { setShowJoinForm(false); setJoinName(''); setJoinEmail('') }}
                   className={`flex-1 py-3 font-semibold rounded-xl transition-colors ${
                     darkMode
                       ? 'bg-slate-700 text-slate-300 hover:bg-slate-600'
@@ -160,7 +193,7 @@ export function GameInfoModal({ event, attendeeCount, darkMode, onClose, onJoine
                 </button>
                 <button
                   onClick={handleJoin}
-                  disabled={!joinEmail || isSubmitting}
+                  disabled={!joinName || !joinEmail || isSubmitting}
                   className="flex-1 py-3 bg-indigo-600 hover:bg-indigo-700 text-white font-semibold rounded-xl transition-colors shadow-lg shadow-indigo-600/20 disabled:opacity-50 disabled:cursor-not-allowed"
                 >
                   {isSubmitting ? 'Joining...' : 'Confirm'}
