@@ -131,7 +131,6 @@ function hostEmailHtml(d: JoinPayload) {
     </table>
   </div>
 
-  <p style="color: #64748b; font-size: 14px;">Reply directly to this email or reach them at <a href="mailto:${d.joinerEmail}" style="color: #4f46e5;">${d.joinerEmail}</a>.</p>
 </body>
 </html>`
 }
