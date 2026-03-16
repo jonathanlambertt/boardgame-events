@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import { createFileRoute } from '@tanstack/react-router'
 import { DicesIcon, MoonIcon, PlusCircleIcon, SunIcon } from 'lucide-react'
 import { supabase } from '../lib/supabase'
@@ -13,10 +13,8 @@ export const Route = createFileRoute('/')({ component: HomePage })
 
 function HomePage() {
   const [activeTab, setActiveTab] = useState<'find' | 'host' | 'settings'>('find')
-  const [darkMode, setDarkMode] = useState(() => {
-    if (typeof window === 'undefined') return true
-    return localStorage.getItem('darkMode') !== 'false'
-  })
+  const [darkMode, setDarkMode] = useState(true)
+  const darkModeInitialized = useRef(false)
   const [events, setEvents] = useState<Event[]>([])
   const [attendeeCounts, setAttendeeCounts] = useState<Record<string, number>>({})
   const [isLoading, setIsLoading] = useState(true)
@@ -25,6 +23,11 @@ function HomePage() {
   const [showJoinToast, setShowJoinToast] = useState(false)
 
   useEffect(() => {
+    if (!darkModeInitialized.current) {
+      darkModeInitialized.current = true
+      setDarkMode(localStorage.getItem('darkMode') !== 'false')
+      return
+    }
     localStorage.setItem('darkMode', String(darkMode))
   }, [darkMode])
 
