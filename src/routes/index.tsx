@@ -6,6 +6,7 @@ import { BottomNav } from '../components/BottomNav'
 import { GameCard } from '../components/GameCard'
 import { GameInfoModal } from '../components/GameInfoModal'
 import { CreateEventForm } from '../components/CreateEventForm'
+import { Toast } from '../components/Toast'
 import type { Event } from '../types'
 
 export const Route = createFileRoute('/')({ component: HomePage })
@@ -21,6 +22,7 @@ function HomePage() {
   const [isLoading, setIsLoading] = useState(true)
   const [selectedEvent, setSelectedEvent] = useState<Event | null>(null)
   const [showCreateForm, setShowCreateForm] = useState(false)
+  const [showJoinToast, setShowJoinToast] = useState(false)
 
   useEffect(() => {
     localStorage.setItem('darkMode', String(darkMode))
@@ -70,6 +72,7 @@ function HomePage() {
         [selectedEvent.id]: (prev[selectedEvent.id] ?? 0) + 1,
       }))
     }
+    setShowJoinToast(true)
   }
 
   return (
@@ -292,6 +295,15 @@ function HomePage() {
       </div>
 
       <BottomNav activeTab={activeTab} onTabChange={setActiveTab} darkMode={darkMode} />
+
+      {showJoinToast && (
+        <Toast
+          message="You're in!"
+          subMessage="Check your email for event details."
+          darkMode={darkMode}
+          onDismiss={() => setShowJoinToast(false)}
+        />
+      )}
     </main>
   )
 }
