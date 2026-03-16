@@ -17,6 +17,7 @@ type JoinPayload = {
   eventTitle: string
   eventLocation: string
   eventDateTime: string
+  eventNotes?: string
   hostName: string
   hostEmail: string
   joinerName: string
@@ -82,6 +83,10 @@ function joinerEmailHtml(d: JoinPayload) {
         <td style="padding: 8px 0; color: #64748b; font-size: 14px;">Contact</td>
         <td style="padding: 8px 0; font-size: 14px;"><a href="mailto:${d.hostEmail}" style="color: #4f46e5;">${d.hostEmail}</a></td>
       </tr>
+      ${d.eventNotes ? `<tr>
+        <td style="padding: 8px 0; color: #64748b; font-size: 14px; vertical-align: top;">Notes</td>
+        <td style="padding: 8px 0; font-size: 14px;">${d.eventNotes}</td>
+      </tr>` : ''}
     </table>
   </div>
 
@@ -119,6 +124,10 @@ function hostEmailHtml(d: JoinPayload) {
         <td style="padding: 8px 0; color: #64748b; font-size: 14px;">When</td>
         <td style="padding: 8px 0; font-weight: 600; font-size: 14px;">${d.eventDateTime}</td>
       </tr>
+      ${d.eventNotes ? `<tr>
+        <td style="padding: 8px 0; color: #64748b; font-size: 14px; vertical-align: top;">Notes</td>
+        <td style="padding: 8px 0; font-size: 14px;">${d.eventNotes}</td>
+      </tr>` : ''}
     </table>
   </div>
 

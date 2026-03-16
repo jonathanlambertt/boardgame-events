@@ -49,6 +49,7 @@ export function GameInfoModal({ event, attendeeCount, darkMode, onClose, onJoine
           eventTitle: event.title,
           eventLocation: event.location,
           eventDateTime: formattedDateTime,
+          eventNotes: event.notes ?? undefined,
           hostName: event.host_name,
           hostEmail: event.host_email,
           joinerName: joinName,
