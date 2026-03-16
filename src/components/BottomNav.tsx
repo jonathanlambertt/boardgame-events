@@ -37,7 +37,7 @@ export function BottomNav({ activeTab, onTabChange, darkMode }: Props) {
                 : "text-slate-400 hover:text-slate-600 hover:bg-slate-50"
           }`}
         >
-          <Icon size={24} strokeWidth={activeTab === id ? 2.5 : 2} />
+          <Icon size={24} />
           <span className="text-xs font-medium">{label}</span>
         </button>
       ))}

@@ -24,10 +24,10 @@ export function GameCard({ event, attendeeCount, darkMode, onMoreInfo }: Props) 
 
   return (
     <div
-      className={`rounded-2xl shadow-lg overflow-hidden hover:-translate-y-1 transition-all duration-300 group ${
+      className={`rounded-2xl shadow-md overflow-hidden hover:-translate-y-1 transition-all duration-300 group ${
         darkMode
-          ? 'bg-slate-800 border border-slate-700 shadow-black/30'
-          : 'bg-white border border-white/20 shadow-slate-600/20'
+          ? 'bg-slate-800 border border-slate-700 shadow-black/20'
+          : 'bg-white border border-white/20 shadow-slate-600/10'
       }`}
     >
       <img
@@ -38,7 +38,7 @@ export function GameCard({ event, attendeeCount, darkMode, onMoreInfo }: Props) 
       <div className="p-6">
         <div className="flex justify-between items-start mb-3">
           <h3
-            className={`text-xl font-bold group-hover:text-indigo-500 transition-colors ${
+            className={`text-xl font-bold ${
               darkMode ? 'text-white' : 'text-slate-900'
             }`}
           >
@@ -100,10 +100,10 @@ export function GameCard({ event, attendeeCount, darkMode, onMoreInfo }: Props) 
           </div>
           <button
             onClick={() => onMoreInfo(event)}
-            className={`text-sm font-semibold transition-colors ${
+            className={`text-sm font-semibold px-4 py-1.5 rounded-full transition-colors ${
               darkMode
-                ? 'text-indigo-400 hover:text-indigo-300'
-                : 'text-indigo-600 hover:text-indigo-700'
+                ? 'bg-indigo-500/20 text-indigo-400 hover:bg-indigo-500/30'
+                : 'bg-indigo-50 text-indigo-600 hover:bg-indigo-100'
             }`}
           >
             More Info
