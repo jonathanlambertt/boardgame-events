@@ -71,8 +71,8 @@ function joinerEmailHtml(d: JoinPayload) {
               <table cellpadding="0" cellspacing="0">
                 <tr>
                   <td style="vertical-align: middle;">
-                    <div style="width: 40px; height: 40px; background: #4f46e5; border-radius: 10px; display: inline-flex; align-items: center; justify-content: center;">
-                      <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="12" height="12" x="2" y="10" rx="2" ry="2"/><path d="m17.92 14 3.5-3.5a2.24 2.24 0 0 0 0-3l-5-4.92A2.24 2.24 0 0 0 13 2.06a2.27 2.27 0 0 0-1.6.66L5 9"/><path d="M6 18h.01"/><path d="M10 14h.01"/><path d="M15 6h.01"/><path d="M18 9h.01"/></svg>
+                    <div style="width: 40px; height: 40px; background: #4f46e5; border-radius: 10px; text-align: center; line-height: 40px;">
+                      <img src="https://tabletop.sh/dices.png" width="22" height="22" alt="Tabletop" style="display: inline-block; vertical-align: middle;" />
                     </div>
                   </td>
                   <td style="padding-left: 10px; vertical-align: middle;">
@@ -145,8 +145,8 @@ function hostEmailHtml(d: JoinPayload) {
               <table cellpadding="0" cellspacing="0">
                 <tr>
                   <td style="vertical-align: middle;">
-                    <div style="width: 40px; height: 40px; background: #4f46e5; border-radius: 10px; display: inline-flex; align-items: center; justify-content: center;">
-                      <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="12" height="12" x="2" y="10" rx="2" ry="2"/><path d="m17.92 14 3.5-3.5a2.24 2.24 0 0 0 0-3l-5-4.92A2.24 2.24 0 0 0 13 2.06a2.27 2.27 0 0 0-1.6.66L5 9"/><path d="M6 18h.01"/><path d="M10 14h.01"/><path d="M15 6h.01"/><path d="M18 9h.01"/></svg>
+                    <div style="width: 40px; height: 40px; background: #4f46e5; border-radius: 10px; text-align: center; line-height: 40px;">
+                      <img src="https://tabletop.sh/dices.png" width="22" height="22" alt="Tabletop" style="display: inline-block; vertical-align: middle;" />
                     </div>
                   </td>
                   <td style="padding-left: 10px; vertical-align: middle;">
