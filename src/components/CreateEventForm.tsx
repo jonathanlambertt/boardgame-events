@@ -58,7 +58,7 @@ export function CreateEventForm({ darkMode, onCancel, onCreated }: Props) {
         host_name: hostName,
         host_email: hostEmail,
         location: gameLocation,
-        scheduled_at: gameTime,
+        scheduled_at: new Date(gameTime).toISOString(),
         total_players: parseInt(totalPlayers),
         notes: gameNotes || null,
         game_type: gameData.type,
