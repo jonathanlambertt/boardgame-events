@@ -79,12 +79,12 @@ export function CreateEventForm({ darkMode, onCancel, onCreated }: Props) {
 
   return (
     <div
-      className={`w-full max-w-md text-left rounded-2xl border p-6 shadow-xl ${
-        darkMode ? "bg-slate-800 border-slate-700" : "bg-white border-slate-200"
+      className={`w-full max-w-md text-left rounded-3xl border p-6 shadow-xl ${
+        darkMode ? "bg-ink-800 border-ink-700" : "bg-white border-ink-100"
       }`}
     >
       <h2
-        className={`text-xl font-bold mb-4 ${darkMode ? "text-white" : "text-slate-900"}`}
+        className={`text-xl font-extrabold tracking-tight mb-4 ${darkMode ? "text-white" : "text-ink-900"}`}
       >
         Create New Event
       </h2>
@@ -95,25 +95,25 @@ export function CreateEventForm({ darkMode, onCancel, onCreated }: Props) {
           <Fragment key={step}>
             <div className="flex flex-col items-center">
               <div
-                className={`w-8 h-8 rounded-full flex items-center justify-center text-sm font-semibold transition-colors shrink-0 ${
+                className={`w-8 h-8 rounded-full flex items-center justify-center text-sm font-bold transition-colors shrink-0 ${
                   formStep >= step
-                    ? "bg-indigo-600 text-white"
+                    ? "bg-primary-600 text-white"
                     : darkMode
-                      ? "bg-slate-700 text-slate-400"
-                      : "bg-slate-200 text-slate-500"
+                      ? "bg-ink-700 text-ink-400"
+                      : "bg-ink-200 text-ink-500"
                 }`}
               >
                 {step}
               </div>
               <span
-                className={`mt-1.5 text-xs whitespace-nowrap ${
+                className={`mt-1.5 text-xs whitespace-nowrap font-medium ${
                   formStep >= step
                     ? darkMode
-                      ? "text-indigo-400"
-                      : "text-indigo-600"
+                      ? "text-primary-400"
+                      : "text-primary-600"
                     : darkMode
-                      ? "text-slate-500"
-                      : "text-slate-400"
+                      ? "text-ink-500"
+                      : "text-ink-400"
                 }`}
               >
                 {label}
@@ -123,10 +123,10 @@ export function CreateEventForm({ darkMode, onCancel, onCreated }: Props) {
               <div
                 className={`flex-1 h-1 mx-2 mt-4 rounded transition-colors ${
                   formStep > step
-                    ? "bg-indigo-600"
+                    ? "bg-primary-600"
                     : darkMode
-                      ? "bg-slate-700"
-                      : "bg-slate-200"
+                      ? "bg-ink-700"
+                      : "bg-ink-200"
                 }`}
               />
             )}
@@ -175,15 +175,15 @@ export function CreateEventForm({ darkMode, onCancel, onCreated }: Props) {
             </Field>
 
             <div
-              className={`p-4 rounded-xl ${darkMode ? "bg-slate-700/50" : "bg-indigo-50"}`}
+              className={`p-4 rounded-xl ${darkMode ? "bg-ink-700/50" : "bg-primary-50"}`}
             >
               <p
-                className={`text-sm font-medium ${darkMode ? "text-slate-300" : "text-slate-700"}`}
+                className={`text-sm font-semibold ${darkMode ? "text-ink-300" : "text-ink-700"}`}
               >
                 Selected Date & Time:
               </p>
               <p
-                className={`text-lg font-semibold ${darkMode ? "text-white" : "text-indigo-600"}`}
+                className={`text-lg font-bold ${darkMode ? "text-white" : "text-primary-600"}`}
               >
                 {gameTime ? (
                   <>
@@ -200,7 +200,7 @@ export function CreateEventForm({ darkMode, onCancel, onCreated }: Props) {
                   </>
                 ) : (
                   <span
-                    className={`text-base font-normal ${darkMode ? "text-slate-500" : "text-slate-400"}`}
+                    className={`text-base font-normal ${darkMode ? "text-ink-500" : "text-ink-400"}`}
                   >
                     No date selected yet
                   </span>
@@ -258,7 +258,7 @@ export function CreateEventForm({ darkMode, onCancel, onCreated }: Props) {
                     value={gameName}
                     onChange={(e) => setGameName(e.target.value)}
                     required
-                    className={`${inputClass(darkMode)} pr-10 appearance-none ${!gameName ? (darkMode ? "text-slate-500" : "text-slate-400") : ""}`}
+                    className={`${inputClass(darkMode)} pr-10 appearance-none ${!gameName ? (darkMode ? "text-ink-500" : "text-ink-400") : ""}`}
                   >
                     <option value="" disabled>
                       Select a game
@@ -274,7 +274,7 @@ export function CreateEventForm({ darkMode, onCancel, onCreated }: Props) {
 
               <div className="shrink-0">
                 <label
-                  className={`block text-sm font-medium mb-1.5 ${darkMode ? "text-slate-300" : "text-slate-700"}`}
+                  className={`block text-sm font-semibold mb-1.5 ${darkMode ? "text-ink-300" : "text-ink-700"}`}
                 >
                   Players
                 </label>
@@ -286,7 +286,7 @@ export function CreateEventForm({ darkMode, onCancel, onCreated }: Props) {
                     value={totalPlayers}
                     onChange={(e) => setTotalPlayers(e.target.value)}
                     required
-                    className={`${inputClass(darkMode)} w-28 pr-8 appearance-none ${!totalPlayers ? (darkMode ? "text-slate-500" : "text-slate-400") : ""}`}
+                    className={`${inputClass(darkMode)} w-28 pr-8 appearance-none ${!totalPlayers ? (darkMode ? "text-ink-500" : "text-ink-400") : ""}`}
                   >
                     <option value="" disabled>
                       —
@@ -315,7 +315,7 @@ export function CreateEventForm({ darkMode, onCancel, onCreated }: Props) {
                   value={gameLocation}
                   onChange={(e) => setGameLocation(e.target.value)}
                   required
-                  className={`${inputClass(darkMode)} pr-10 appearance-none ${!gameLocation ? (darkMode ? "text-slate-500" : "text-slate-400") : ""}`}
+                  className={`${inputClass(darkMode)} pr-10 appearance-none ${!gameLocation ? (darkMode ? "text-ink-500" : "text-ink-400") : ""}`}
                 >
                   <option value="" disabled>
                     Select a location
@@ -335,10 +335,10 @@ export function CreateEventForm({ darkMode, onCancel, onCreated }: Props) {
                 onChange={(e) => setGameNotes(e.target.value)}
                 placeholder="Any additional details, house rules, or things players should know..."
                 rows={4}
-                className={`w-full px-4 py-3 rounded-xl border transition-shadow focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent resize-none ${
+                className={`w-full px-4 py-3 rounded-xl border transition-shadow focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent resize-none ${
                   darkMode
-                    ? "bg-slate-700 border-slate-600 text-white placeholder:text-slate-500"
-                    : "bg-slate-50 border-slate-200 text-slate-900 placeholder:text-slate-400"
+                    ? "bg-ink-700 border-ink-600 text-white placeholder:text-ink-500"
+                    : "bg-ink-50 border-ink-200 text-ink-900 placeholder:text-ink-400"
                 }`}
               />
             </Field>
@@ -354,10 +354,10 @@ export function CreateEventForm({ darkMode, onCancel, onCreated }: Props) {
             onClick={
               formStep === 1 ? onCancel : () => setFormStep(formStep - 1)
             }
-            className={`flex-1 px-4 py-3 font-semibold rounded-xl transition-colors ${
+            className={`flex-1 px-4 py-3 font-semibold rounded-2xl transition-colors ${
               darkMode
-                ? "bg-slate-700 text-slate-300 hover:bg-slate-600"
-                : "bg-slate-100 text-slate-700 hover:bg-slate-200"
+                ? "bg-ink-700 text-ink-300 hover:bg-ink-600"
+                : "bg-ink-100 text-ink-700 hover:bg-ink-200"
             }`}
           >
             {formStep === 1 ? "Cancel" : "Back"}
@@ -377,7 +377,7 @@ export function CreateEventForm({ darkMode, onCancel, onCreated }: Props) {
                 (formStep === 1 && !step1Valid) ||
                 (formStep === 2 && !step2Valid)
               }
-              className="flex-1 px-4 py-3 bg-indigo-600 text-white font-semibold rounded-xl hover:bg-indigo-700 transition-colors shadow-lg shadow-indigo-600/20 disabled:opacity-50 disabled:cursor-not-allowed"
+              className="flex-1 px-4 py-3 bg-primary-600 text-white font-bold rounded-2xl hover:bg-primary-700 transition-colors shadow-lg shadow-primary-600/25 disabled:opacity-50 disabled:cursor-not-allowed"
             >
               Next
             </button>
@@ -385,7 +385,7 @@ export function CreateEventForm({ darkMode, onCancel, onCreated }: Props) {
             <button
               type="submit"
               disabled={!step3Valid || isSubmitting}
-              className="flex-1 px-4 py-3 bg-indigo-600 text-white font-semibold rounded-xl hover:bg-indigo-700 transition-colors shadow-lg shadow-indigo-600/20 disabled:opacity-50 disabled:cursor-not-allowed"
+              className="flex-1 px-4 py-3 bg-primary-600 text-white font-bold rounded-2xl hover:bg-primary-700 transition-colors shadow-lg shadow-primary-600/25 disabled:opacity-50 disabled:cursor-not-allowed"
             >
               {isSubmitting ? "Creating..." : "Create Event"}
             </button>
@@ -396,17 +396,15 @@ export function CreateEventForm({ darkMode, onCancel, onCreated }: Props) {
   );
 }
 
-// Small helpers to reduce repetition in the form fields
-
 function iconClass(darkMode: boolean) {
-  return `absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 ${darkMode ? "text-slate-500" : "text-slate-400"}`;
+  return `absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 ${darkMode ? "text-ink-500" : "text-ink-400"}`;
 }
 
 function inputClass(darkMode: boolean) {
-  return `w-full max-w-full pl-10 pr-4 py-3 rounded-xl border transition-shadow focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent ${
+  return `w-full max-w-full pl-10 pr-4 py-3 rounded-xl border transition-shadow focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent ${
     darkMode
-      ? "bg-slate-700 border-slate-600 text-white placeholder:text-slate-500"
-      : "bg-slate-50 border-slate-200 text-slate-900 placeholder:text-slate-400"
+      ? "bg-ink-700 border-ink-600 text-white placeholder:text-ink-500"
+      : "bg-ink-50 border-ink-200 text-ink-900 placeholder:text-ink-400"
   }`;
 }
 
@@ -422,7 +420,7 @@ function Field({
   return (
     <div>
       <label
-        className={`block text-sm font-medium mb-1.5 ${darkMode ? "text-slate-300" : "text-slate-700"}`}
+        className={`block text-sm font-semibold mb-1.5 ${darkMode ? "text-ink-300" : "text-ink-700"}`}
       >
         {label}
       </label>
@@ -445,7 +443,7 @@ function InputWithIcon({
       {icon}
       {children}
       {hasChevron && (
-        <ChevronRightIcon className="absolute right-3 top-1/2 -translate-y-1/2 w-5 h-5 rotate-90 pointer-events-none text-slate-400" />
+        <ChevronRightIcon className="absolute right-3 top-1/2 -translate-y-1/2 w-5 h-5 rotate-90 pointer-events-none text-ink-400" />
       )}
     </div>
   );

@@ -1,5 +1,5 @@
 import { useState, useEffect, useRef } from 'react'
-import { createFileRoute } from '@tanstack/react-router'
+import { Link, createFileRoute } from '@tanstack/react-router'
 import { DicesIcon, MoonIcon, PlusCircleIcon, SunIcon } from 'lucide-react'
 import { supabase } from '../lib/supabase'
 import { BottomNav } from '../components/BottomNav'
@@ -7,13 +7,14 @@ import { GameCard } from '../components/GameCard'
 import { GameInfoModal } from '../components/GameInfoModal'
 import { CreateEventForm } from '../components/CreateEventForm'
 import { Toast } from '../components/Toast'
+import { Logo } from '../components/Logo'
 import type { Event } from '../types'
 
 export const Route = createFileRoute('/')({ component: HomePage })
 
 function HomePage() {
   const [activeTab, setActiveTab] = useState<'find' | 'host' | 'settings'>('find')
-  const [darkMode, setDarkMode] = useState(true)
+  const [darkMode, setDarkMode] = useState(false)
   const darkModeInitialized = useRef(false)
   const [events, setEvents] = useState<Event[]>([])
   const [attendeeCounts, setAttendeeCounts] = useState<Record<string, number>>({})
@@ -25,7 +26,7 @@ function HomePage() {
   useEffect(() => {
     if (!darkModeInitialized.current) {
       darkModeInitialized.current = true
-      setDarkMode(localStorage.getItem('darkMode') !== 'false')
+      setDarkMode(localStorage.getItem('darkMode') === 'true')
       return
     }
     localStorage.setItem('darkMode', String(darkMode))
@@ -81,35 +82,9 @@ function HomePage() {
   return (
     <main
       className={`min-h-screen w-full relative overflow-hidden transition-colors duration-300 ${
-        darkMode ? 'bg-slate-900' : 'bg-slate-50'
+        darkMode ? 'bg-ink-950' : 'bg-white'
       }`}
     >
-      {/* Background grid pattern */}
-      <div
-        className={`absolute inset-0 pointer-events-none transition-opacity duration-300 ${darkMode ? 'opacity-[0.05]' : 'opacity-[0.03]'}`}
-        style={{
-          backgroundImage: `
-            linear-gradient(to right, ${darkMode ? '#818cf8' : '#4f46e5'} 1px, transparent 1px),
-            linear-gradient(to bottom, ${darkMode ? '#818cf8' : '#4f46e5'} 1px, transparent 1px)
-          `,
-          backgroundSize: '48px 48px',
-        }}
-      />
-
-      {/* Decorative dice */}
-      {[
-        { top: 'top-20', left: 'left-[10%]', rotate: 'rotate-12', opacity: 'opacity-60', size: 48 },
-        { top: 'top-32', left: 'right-[15%]', rotate: '-rotate-12', opacity: 'opacity-50', size: 32 },
-        { top: 'bottom-32', left: 'left-[20%]', rotate: 'rotate-45', opacity: 'opacity-40', size: 40 },
-        { top: 'bottom-24', left: 'right-[12%]', rotate: '-rotate-6', opacity: 'opacity-50', size: 36 },
-      ].map((d, i) => (
-        <div
-          key={i}
-          className={`absolute ${d.top} ${d.left} ${d.rotate} ${d.opacity} pointer-events-none transition-colors duration-300 ${darkMode ? 'text-indigo-400' : 'text-indigo-200'}`}
-        >
-          <DicesIcon size={d.size} strokeWidth={1.5} />
-        </div>
-      ))}
 
       {/* Game Info Modal */}
       {selectedEvent && (
@@ -127,18 +102,16 @@ function HomePage() {
         <nav
           className={`fixed top-0 left-0 right-0 z-40 border-b transition-colors duration-300 ${
             darkMode
-              ? 'bg-slate-800 border-slate-700 shadow-[0_4px_6px_-1px_rgba(0,0,0,0.3)]'
-              : 'bg-white border-slate-200 shadow-[0_4px_6px_-1px_rgba(0,0,0,0.05)]'
+              ? 'bg-ink-950/90 border-ink-800/80 backdrop-blur-md'
+              : 'bg-white/90 border-ink-100 backdrop-blur-md'
           }`}
         >
-          <div className="flex items-center justify-center px-6 py-4 max-w-7xl mx-auto w-full">
+          <div className="flex items-center justify-center px-6 py-3.5 max-w-7xl mx-auto w-full">
             <div className="flex items-center gap-2">
-              <div className="w-10 h-10 bg-indigo-600 rounded-lg flex items-center justify-center shadow-md">
-                <DicesIcon className="text-white" size={24} />
-              </div>
+              <Logo size={30} />
               <span
-                className={`text-2xl font-semibold tracking-tight transition-colors duration-300 ${
-                  darkMode ? 'text-white' : 'text-slate-800'
+                className={`font-display text-2xl font-semibold tracking-tight transition-colors duration-300 ${
+                  darkMode ? 'text-white' : 'text-ink-900'
                 }`}
               >
                 Tabletop
@@ -149,55 +122,61 @@ function HomePage() {
 
         {/* Find Tab */}
         {activeTab === 'find' && (
-          <section className="px-6 py-8 flex-1">
+          <section className="px-6 py-10 flex-1">
             <div className="max-w-7xl mx-auto">
-              <h2
-                className={`text-xl font-bold mb-6 transition-colors duration-300 ${
-                  darkMode ? 'text-white' : 'text-slate-900'
-                }`}
-              >
-                Nearby Games
-              </h2>
+              <div className="mb-10">
+                <h2
+                  className={`font-display text-4xl sm:text-5xl font-semibold tracking-tight leading-[1.05] ${
+                    darkMode ? 'text-white' : 'text-ink-900'
+                  }`}
+                >
+                  Nearby games
+                </h2>
+                <p
+                  className={`mt-3 text-base ${darkMode ? 'text-ink-400' : 'text-ink-500'}`}
+                >
+                  Find a table and join the fun.
+                </p>
+              </div>
 
               {isLoading ? (
                 <div className="flex justify-center py-16">
-                  <div className="w-8 h-8 border-2 border-indigo-500 border-t-transparent rounded-full animate-spin" />
+                  <div className="w-8 h-8 border-2 border-primary-500 border-t-transparent rounded-full animate-spin" />
                 </div>
               ) : events.length === 0 ? (
                 <div
-                  className={`flex flex-col items-center justify-center py-16 text-center rounded-2xl border-2 border-dashed ${
-                    darkMode ? 'border-slate-700' : 'border-slate-200'
+                  className={`flex flex-col items-center justify-center py-24 text-center rounded-3xl border ${
+                    darkMode ? 'border-ink-800 bg-ink-900/40' : 'border-ink-100 bg-ink-50'
                   }`}
                 >
                   <div
-                    className={`w-16 h-16 rounded-full flex items-center justify-center mb-4 ${
-                      darkMode ? 'bg-indigo-500/20' : 'bg-indigo-50'
+                    className={`w-16 h-16 rounded-2xl flex items-center justify-center mb-5 ${
+                      darkMode ? 'bg-ink-800' : 'bg-white'
                     }`}
                   >
                     <DicesIcon
-                      className={`w-8 h-8 ${darkMode ? 'text-indigo-400' : 'text-indigo-500'}`}
+                      className={`w-8 h-8 ${darkMode ? 'text-primary-400' : 'text-primary-500'}`}
                     />
                   </div>
                   <h3
-                    className={`text-lg font-semibold mb-1 ${darkMode ? 'text-white' : 'text-slate-900'}`}
+                    className={`font-display text-2xl font-semibold mb-2 ${darkMode ? 'text-white' : 'text-ink-900'}`}
                   >
                     No games nearby yet
                   </h3>
                   <p
-                    className={`text-sm mb-5 max-w-xs ${darkMode ? 'text-slate-400' : 'text-slate-500'}`}
+                    className={`text-sm mb-6 max-w-xs leading-relaxed ${darkMode ? 'text-ink-400' : 'text-ink-500'}`}
                   >
-                    Be the first to bring people together! <br />
-                    Host a game night in your area.
+                    Be the first to bring people together. Host a game night in your area.
                   </p>
                   <button
                     onClick={() => setActiveTab('host')}
-                    className="px-5 py-2.5 bg-indigo-600 text-white text-sm font-semibold rounded-xl hover:bg-indigo-700 transition-colors shadow-lg shadow-indigo-600/20"
+                    className="px-6 py-2.5 bg-primary-500 text-white text-sm font-semibold rounded-full hover:bg-primary-600 transition-colors"
                   >
-                    Host a Game
+                    Host a game
                   </button>
                 </div>
               ) : (
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-x-6 gap-y-10">
                   {events.map((event) => (
                     <GameCard
                       key={event.id}
@@ -219,30 +198,29 @@ function HomePage() {
             {!showCreateForm ? (
               <>
                 <div
-                  className={`w-20 h-20 rounded-full flex items-center justify-center mb-6 ${
-                    darkMode ? 'bg-indigo-500/20' : 'bg-indigo-100'
+                  className={`w-20 h-20 rounded-2xl flex items-center justify-center mb-6 ${
+                    darkMode ? 'bg-ink-800' : 'bg-ink-50'
                   }`}
                 >
                   <PlusCircleIcon
-                    className={`w-10 h-10 ${darkMode ? 'text-indigo-400' : 'text-indigo-600'}`}
+                    className={`w-10 h-10 ${darkMode ? 'text-primary-400' : 'text-primary-500'}`}
                   />
                 </div>
                 <h2
-                  className={`text-2xl font-bold mb-2 ${darkMode ? 'text-white' : 'text-slate-900'}`}
+                  className={`font-display text-4xl font-semibold mb-3 tracking-tight ${darkMode ? 'text-white' : 'text-ink-900'}`}
                 >
-                  Host a Game Night
+                  Host a game night
                 </h2>
                 <p
-                  className={`max-w-md mb-8 ${darkMode ? 'text-slate-400' : 'text-slate-600'}`}
+                  className={`max-w-sm mb-8 leading-relaxed ${darkMode ? 'text-ink-400' : 'text-ink-500'}`}
                 >
-                  Ready to bring people together? Create an event, set the game,
-                  and invite players from your community.
+                  Ready to bring people together? Create an event, set the game, and invite players from your community.
                 </p>
                 <button
                   onClick={() => setShowCreateForm(true)}
-                  className="px-6 py-3 bg-indigo-600 text-white font-semibold rounded-xl hover:bg-indigo-700 transition-colors shadow-lg shadow-indigo-600/20"
+                  className="px-8 py-3 bg-primary-500 text-white font-semibold rounded-full hover:bg-primary-600 transition-colors"
                 >
-                  Create Event
+                  Create event
                 </button>
               </>
             ) : (
@@ -259,22 +237,22 @@ function HomePage() {
         {activeTab === 'settings' && (
           <div className="flex-1 p-6 max-w-md mx-auto w-full">
             <h2
-              className={`text-2xl font-bold mb-6 ${darkMode ? 'text-white' : 'text-slate-900'}`}
+              className={`text-2xl font-extrabold tracking-tight mb-6 ${darkMode ? 'text-white' : 'text-ink-900'}`}
             >
               Settings
             </h2>
             <div
-              className={`rounded-xl border overflow-hidden ${darkMode ? 'bg-slate-800 border-slate-700' : 'bg-white border-slate-200'}`}
+              className={`rounded-2xl border overflow-hidden ${darkMode ? 'bg-ink-800 border-ink-700' : 'bg-white border-ink-100 shadow-sm'}`}
             >
               <div className="p-4 flex items-center justify-between">
                 <div className="flex items-center gap-3">
                   {darkMode ? (
-                    <MoonIcon className="w-5 h-5 text-indigo-400" />
+                    <MoonIcon className="w-5 h-5 text-primary-400" />
                   ) : (
-                    <SunIcon className="w-5 h-5 text-slate-400" />
+                    <SunIcon className="w-5 h-5 text-ink-400" />
                   )}
                   <span
-                    className={`font-medium ${darkMode ? 'text-slate-200' : 'text-slate-700'}`}
+                    className={`font-semibold ${darkMode ? 'text-ink-200' : 'text-ink-700'}`}
                   >
                     Dark Mode
                   </span>
@@ -282,7 +260,7 @@ function HomePage() {
                 <button
                   onClick={() => setDarkMode(!darkMode)}
                   className={`relative w-12 h-7 rounded-full transition-colors duration-300 ${
-                    darkMode ? 'bg-indigo-600' : 'bg-slate-200'
+                    darkMode ? 'bg-primary-600' : 'bg-ink-200'
                   }`}
                 >
                   <span
@@ -293,6 +271,31 @@ function HomePage() {
                 </button>
               </div>
             </div>
+
+            {/* Legal links */}
+            <div className={`mt-6 rounded-2xl border overflow-hidden ${darkMode ? 'bg-ink-900 border-ink-800' : 'bg-white border-ink-100'}`}>
+              {[
+                { label: 'Terms of Service', to: '/terms' },
+                { label: 'Privacy Policy', to: '/privacy' },
+              ].map(({ label, to }, i, arr) => (
+                <Link
+                  key={to}
+                  to={to}
+                  className={`flex items-center justify-between px-4 py-3.5 text-sm font-medium transition-colors ${
+                    darkMode
+                      ? 'text-ink-300 hover:bg-ink-800'
+                      : 'text-ink-700 hover:bg-ink-50'
+                  } ${i < arr.length - 1 ? `border-b ${darkMode ? 'border-ink-800' : 'border-ink-100'}` : ''}`}
+                >
+                  {label}
+                  <span className={darkMode ? 'text-ink-500' : 'text-ink-400'}>›</span>
+                </Link>
+              ))}
+            </div>
+
+            <p className={`mt-8 text-center text-xs ${darkMode ? 'text-ink-500' : 'text-ink-400'}`}>
+              © {new Date().getFullYear()} Tabletop. All rights reserved.
+            </p>
           </div>
         )}
       </div>
